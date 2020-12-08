@@ -54,8 +54,6 @@ for line in text_file:
 			add_note_to_track(t, current_note, mf)
 			note_storage[t] = Note(time, track_pitch)
 	time += tick_length #move 1/4 beat into the future
-	if i >= max_iter:
-		break
 
 #After text file ends, add the remaining notes
 for i in range(0,4):

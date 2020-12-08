@@ -52,8 +52,6 @@ for audio_file_name, text_file_name in enumerate(text_file_list):
 			add_note_to_track(0, current_note, mf)
 			note_storage = Note(time, track_pitch)
 		time += tick_length #move 1/4 beat into the future
-		if i >= max_iter:
-			break
 
 	#After text file ends, add the remaining notes
 	add_note_to_track(0, note_storage, mf)
