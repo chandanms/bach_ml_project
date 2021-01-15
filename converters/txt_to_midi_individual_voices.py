@@ -60,3 +60,4 @@ for audio_file_name, text_file_name in enumerate(text_file_list):
 	with open(str(audio_file_name + 1) + ".mid", 'wb') as outf:
 		mf.writeFile(outf)
 
+print("Hello World")
