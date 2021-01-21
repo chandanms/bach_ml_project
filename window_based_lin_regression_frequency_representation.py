@@ -10,10 +10,6 @@ def noteToFreq(note):
     return (a / 32) * (2 ** ((note - 9) / 12))
 
 
-def freqToNote(freq):
-	a = 440
-
-
 
 
 def noteToRepresentation(note_text_file_name):	
