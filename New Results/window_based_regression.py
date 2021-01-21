@@ -1,6 +1,4 @@
-from representation_input import representation_input
-from representation_output import representation_output
-from sklearn.linear_model import Ridge
+from represe
 
 
 note_text_file_name = "dataset/2.txt"
