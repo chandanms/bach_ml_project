@@ -1,5 +1,17 @@
 
 
+def output_note_list(notes_list):
+    # Get the max and min value without zero.
+    min_p = min(list(filter(lambda a: a != 0, notes_list)))
+    max_p = max(list(filter(lambda a: a != 0, notes_list)))
+
+    # Generate a sequence which first element is zero note and the rest is the range of the notes like y is represented
+    output_list = list(range(min_p, max_p + 1))
+    output_list.insert(0, 0)
+
+    return output_list
+
+
 def representation_output(notes_list):
     # Get the max and min value without zero.
     min_p = min(list(filter(lambda a: a != 0, notes_list)))
@@ -21,3 +33,6 @@ def representation_output(notes_list):
         output.append(vector)
 
     return output
+
+
+
