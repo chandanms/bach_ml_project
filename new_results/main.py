@@ -15,7 +15,8 @@ notes_list = notes_list[2484:3812]
 print(len(notes_list))
 tick_length = 0.25
 
-predicted_notes_list = predict_regression(30, notes_list, 200)
+predicted_notes_list = predict_regression(window_size=8, notes=notes_list, number_predictions=200, p=0.075)
+
 print(len(predicted_notes_list))
 
 convertNotesTomidifile(predicted_notes_list, "linear_prediction_2")

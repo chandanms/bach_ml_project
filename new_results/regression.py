@@ -6,13 +6,15 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score
 from new_results.pick_note import unity_based_normalization
+from new_results.pick_note import pick_note
+from sklearn.metrics import mean_squared_error, r2_score
 
 
-def predict_regression(window_size, notes, number_predictions):
+def predict_regression(window_size, notes, number_predictions, p):
     # Represent the notes list as a matrix input #
     x_input = representation_input(notes)
 
-    # Create a matrix that is suitable for a linear regression
+    # Create a matrix that is suitable for a linear regression such that window size is transformed
     x_matrix = window_matrix(window_size, x_input)
 
     y_matrix = representation_output(notes)
@@ -24,7 +26,13 @@ def predict_regression(window_size, notes, number_predictions):
 
     trained_model = LinearRegression().fit(x_matrix, y_matrix)
     # What does this function do ? #
-    cross_val_score(trained_model, x_matrix, y_matrix, cv=10).mean()
+    cross_score = cross_val_score(trained_model, x_matrix, y_matrix, cv=10).mean()
+    print(cross_score)
+    y_predicted = trained_model.predict(x_matrix)
+    rmse = mean_squared_error(y_matrix, y_predicted)
+    print(rmse)
+    r2 = r2_score(y_matrix, y_predicted)
+    print(r2)
 
     # In this part we predict values for the number of predictions we want #
     for number_predictions in range(0, number_predictions):
@@ -35,8 +43,7 @@ def predict_regression(window_size, notes, number_predictions):
 
         normalized_y = unity_based_normalization(predicted_y)
 
-        predict_note = np.random.choice(output_notes, size=1, p=normalized_y)
-        predict_note = np.asscalar(predict_note)
+        predict_note = pick_note(normalized_y, p, output_notes)
 
         # Select the note based on the highest probability #
         # highest_probability_index = np.argmax(predicted_y)

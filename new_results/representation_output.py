@@ -34,5 +34,16 @@ def representation_output(notes_list):
 
     return output
 
+#def output_note_list(notes_list):
+    # Delete zero from the list
+#    unique = list(filter(lambda a: a != 0, notes_list))
+ #   unique_list = []
+#    for note in unique:
+#        unique_list.add(note)
+#    # Add zero to the first entry of the list #
+#    unique_list.insert(0)
+
+ #   return unique_list
+
 
 
