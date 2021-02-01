@@ -71,24 +71,5 @@ last_note_Soprano = bigram_Soprano[-1][0]
 generate_sequence(bigram_Soprano, last_note_Soprano, 30)
 
 
-# plots and frequencies
-(unique, counts) = np.unique(F.iloc[:,1], return_counts=True)
-frequencies = np.asarray((unique, counts)).T
-plt.plot(F.iloc[:,0], F.iloc[:,1])
-plt.plot(F.iloc[:,0], F.iloc[:,2])
-plt.plot(F.iloc[:,0], F.iloc[:,3])
-plt.plot(F.iloc[:,0], F.iloc[:,4])
-plt.show()
 
-plt.hist(F.iloc[:,1])
-plt.hist(F.iloc[:,2])
-plt.hist(F.iloc[:,3])
-plt.hist(F.iloc[:,4])
-plt.show()
-
-plt.hist(F_diff.iloc[:,1])
-plt.hist(F_diff.iloc[:,2])
-plt.hist(F_diff.iloc[:,3])
-plt.hist(F_diff.iloc[:,4])
-plt.show()
 
