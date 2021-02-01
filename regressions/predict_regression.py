@@ -1,13 +1,10 @@
-from new_results.representation_input import representation_input
-from new_results.representation_output import representation_output
-from new_results.window_matrix import window_matrix
-from new_results.representation_output import output_note_list
-import numpy as np
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import cross_val_score
-from new_results.pick_note import unity_based_normalization
-from new_results.pick_note import pick_note
-from sklearn.metrics import mean_squared_error, r2_score
+from representation.representation_input import representation_input
+from representation.representation_output import representation_output
+from representation.window_matrix import window_matrix
+from representation.representation_output import output_note_list
+from tools.pick_note import unity_based_normalization
+from tools.pick_note import pick_note
+from regressions.train_regression_OLS import train_regression
 
 
 def predict_regression(window_size, notes, number_predictions, p):
@@ -24,15 +21,7 @@ def predict_regression(window_size, notes, number_predictions, p):
     # Output notes contains all the notes that are represented by the output vector y #
     output_notes = output_note_list(notes)
 
-    trained_model = LinearRegression().fit(x_matrix, y_matrix)
-    # What does this function do ? #
-    cross_score = cross_val_score(trained_model, x_matrix, y_matrix, cv=10).mean()
-    print(cross_score)
-    y_predicted = trained_model.predict(x_matrix)
-    rmse = mean_squared_error(y_matrix, y_predicted)
-    print(rmse)
-    r2 = r2_score(y_matrix, y_predicted)
-    print(r2)
+    trained_model = train_regression(x_matrix, y_matrix)
 
     # In this part we predict values for the number of predictions we want #
     for number_predictions in range(0, number_predictions):

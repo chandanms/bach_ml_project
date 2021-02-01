@@ -1,5 +1,5 @@
-from new_results.notes_to_midi import convertNotesTomidifile
-from new_results.regression import predict_regression
+from tools.notes_to_midi import convertNotesTomidifile
+from regressions.predict_regression import predict_regression
 
 note_text_file_name = "dataset/2.txt"
 
