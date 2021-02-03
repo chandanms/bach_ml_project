@@ -1,6 +1,8 @@
 from audiolazy import freq2midi
 from midiutil.MidiFile import MIDIFile
-
+import numpy as np
+from itertools import groupby
+from collections import defaultdict
 
 class Note:
 
@@ -114,3 +116,44 @@ def noteToRepresentation(note_text_file_name):
 		representation_list.append([note_in_freq, zeroth_octave_note, distance_from_zeroth_octave])
 
 	return representation_list
+
+
+def pdf_of_occurences_each_note():
+	
+	dataset_path = "dataset/"
+
+	text_file_list = ["1.txt", "2.txt", "3.txt", "4.txt"]
+
+	notes_list = []
+
+	for text_file in text_file_list:
+
+		note_text_file = open(dataset_path + text_file, "r")
+
+		for note in note_text_file:
+			notes_list.append(int(note))
+
+	groups = groupby(notes_list)
+
+	result = [(label, sum(1 for _ in group)) for label, group in groups]
+
+	analysis_dict = defaultdict(list)
+
+
+	for label, count in result:
+
+		if label == 0:
+			if count < 20:
+				analysis_dict[label].append(count)
+		else :
+			analysis_dict[label].append(count)
+
+	return analysis_dict
+
+
+
+def get_occurence(note_pdf_dict, predicted_note):
+
+    occurances = np.random.choice(note_pdf_dict[predicted_note])
+
+    return occurances
