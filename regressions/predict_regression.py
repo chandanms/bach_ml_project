@@ -1,7 +1,7 @@
-from representation.representation_input import representation_input
-from representation.representation_output import representation_output
+from representation.representation_input_duration import representation_input
+from representation.representation_output_duration import representation_output
 from representation.window_matrix import window_matrix
-from representation.representation_output import output_note_list
+from representation.representation_output_duration import output_note_list
 from tools.pick_note import unity_based_normalization
 from tools.pick_note import pick_note
 from regressions.train_OLS import train_OLS
@@ -22,7 +22,7 @@ def predict_regression(window_size, notes, number_predictions, p):
     # Output notes contains all the notes that are represented by the output vector y #
     output_notes = output_note_list(notes)
 
-    trained_model = train_ridge(x_matrix, y_matrix)
+    trained_model = train_OLS(x_matrix, y_matrix)
 
     # In this part we predict values for the number of predictions we want #
     for number_predictions in range(0, number_predictions):

@@ -5,7 +5,7 @@ import numpy as np
 
 
 def train_ridge(x_matrix, y_matrix):
-    model = Ridge
+    model = Ridge()
 
     cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
 

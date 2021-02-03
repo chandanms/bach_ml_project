@@ -12,7 +12,7 @@ for note in note_text_file:
 
 # Make sure here to select the right part of the notes list data, you will get different values #
 notes_list = notes_list[2484:3812]
-print(len(notes_list))
+
 tick_length = 0.25
 
 predicted_notes_list = predict_regression(window_size=8, notes=notes_list, number_predictions=200, p=0.075)
