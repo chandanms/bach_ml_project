@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import collections
+from tools import convertNotesTomidifile
 
 F = pd.read_csv("F.txt", sep = "\t")
 F.columns = ['Bass', 'Tenor', 'Alto', 'Soprano']
@@ -62,7 +63,7 @@ while i < len(soprano_length):
     i += 2
 
 def predict_next_state(bigram, note):
-    """Predict next chord based on current state."""
+    """Predict next note based on current state."""
     # create list of bigrams which stats with current note
     bigrams_with_current_note = [bigram[i] for i in range(0, len(bigram)) if bigram[i][0] == note]
     # count appearance of each bigram
@@ -112,18 +113,28 @@ def generate_sequence(bigram, note, notes_length, length):
         notes.append([next_chord]*duration)
         # use last chord in sequence to predict next chord
         note = notes[-1][-1]
+    notes = [item for sublist in notes for item in sublist]
     return notes
 
 # output
 n = 30 # number of notes predicted
 last_note_Bass = bigram_Bass[-1][0]
-print(generate_sequence(bigram_Bass, last_note_Bass, notes_with_length_bass, n))
+pred_Bass = generate_sequence(bigram_Bass, last_note_Bass, notes_with_length_bass, n)
+convertNotesTomidifile(pred_Bass, 'Bass_output')
 last_note_Tenor = bigram_Tenor[-1][0]
-print(generate_sequence(bigram_Tenor, last_note_Tenor, notes_with_length_tenor, n))
+pred_Tenor = generate_sequence(bigram_Tenor, last_note_Tenor, notes_with_length_tenor, n)
+convertNotesTomidifile(pred_Tenor, 'Tenor_output')
 last_note_Alto = bigram_Alto[-1][0]
-print(generate_sequence(bigram_Alto, last_note_Alto, notes_with_length_alto, n))
+pred_Alto = generate_sequence(bigram_Alto, last_note_Alto, notes_with_length_alto, n)
+convertNotesTomidifile(pred_Alto, 'Alto_output')
 last_note_Soprano = bigram_Soprano[-1][0]
-print(generate_sequence(bigram_Soprano, last_note_Soprano, notes_with_length_soprano, n))
+pred_Soprano = generate_sequence(bigram_Soprano, last_note_Soprano, notes_with_length_soprano, n)
+convertNotesTomidifile(pred_Soprano, 'Soprano_output')
+
+
+
+
+
 
 
 
