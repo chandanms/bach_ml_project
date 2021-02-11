@@ -2,9 +2,10 @@ import pandas as pd
 import numpy as np
 import collections
 from tools import convertNotesTomidifile
+import random
 
 F = pd.read_csv("F.txt", sep = "\t")
-F.columns = ['Bass', 'Tenor', 'Alto', 'Soprano']
+F.columns = ['Soprano', 'Alto', 'Tenor', 'Bass']
 F.insert(loc=0, column='Time', value=range(0, len(F)))
 
 # make different biagrams for the columns
@@ -117,7 +118,8 @@ def generate_sequence(bigram, note, notes_length, length):
     return notes
 
 # output
-n = 30 # number of notes predicted
+random.seed(10)
+n = 10 # number of notes predicted
 last_note_Bass = bigram_Bass[-1][0]
 pred_Bass = generate_sequence(bigram_Bass, last_note_Bass, notes_with_length_bass, n)
 convertNotesTomidifile(pred_Bass, 'Bass_output')
@@ -130,11 +132,6 @@ convertNotesTomidifile(pred_Alto, 'Alto_output')
 last_note_Soprano = bigram_Soprano[-1][0]
 pred_Soprano = generate_sequence(bigram_Soprano, last_note_Soprano, notes_with_length_soprano, n)
 convertNotesTomidifile(pred_Soprano, 'Soprano_output')
-
-
-
-
-
 
 
 
