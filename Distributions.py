@@ -1,16 +1,14 @@
-# We make the assumption here that the data is normal distributed and generate music, which is not very likely but I
-# plotted some histograms in R and you can observe that the data is (very) roughly normal distributed. So we can use
-# this fact as an base line model
-
-import pandas as pd
+# packages
 import numpy as np
+import pandas as pd
+from tools import convertNotesTomidifile
 import trimesh.voxel as tv
 import collections
 from fractions import Fraction
-from tools import convertNotesTomidifile
+import random
 
 F = pd.read_csv("F.txt", sep = "\t")
-F.columns = ['Bass', 'Tenor', 'Alto', 'Soprano']
+F.columns = ['Soprano', 'Alto', 'Tenor', 'Bass']
 F.insert(loc=0, column='Time', value=range(0, len(F)))
 
 def predict_next_state(sequence):
@@ -84,8 +82,8 @@ def generate_sequence(sequence, length):
     return notes
 
 # create output
-
-n = 30 # number of notes predicted
+random.seed(10)
+n = 10 # number of notes predicted
 pred_Bass = generate_sequence(F.Bass, n)
 convertNotesTomidifile(pred_Bass, 'Bass_output_distr')
 pred_Tenor = generate_sequence(F.Tenor, n)
