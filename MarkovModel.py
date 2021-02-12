@@ -66,7 +66,7 @@ while i < len(soprano_length):
 def predict_next_state(bigram, note):
     """Predict next note based on current state."""
     # create list of bigrams which stats with current note
-    bigrams_with_current_note = [bigram[i] for i in range(0, len(bigram)) if bigram[i][0] == note]
+    bigrams_with_current_note = [bigram[i] for i in range(0, len(bigram)) if bigram[i][0] == note and bigram[i][0] != bigram[i][1]]
     # count appearance of each bigram
     count_appearance = dict(collections.Counter(bigrams_with_current_note))
     # convert apperance into probabilities
@@ -81,6 +81,8 @@ def predict_next_state(bigram, note):
     probabilities = list(count_appearance.values())
     # return random prediction
     return np.random.choice(options, p=probabilities)
+
+predict_next_state(bigram_Bass, 0)
 
 def predict_duration(notes_length, note):
     """Predict duration of predicted note"""
